@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Performance Metrics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
+    <style>
+     body  {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        color: #333;
+    }
+
+    #container {
+        width: 100%; /* Full width of the viewport */
+        max-width: 1200px; /* New expanded maximum width (you can adjust this value as needed) */
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        overflow-y: auto; /* Allow vertical scrolling if content overflows */
+        max-height: 90vh; /* Limit height to prevent overflowing the viewport */
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        resize: vertical;
+    }
+
+    h1 {
+        color: orange;
+    }
+
+    button {
+        background-color: orange;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: darkorange;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    th {
+        background-color: orange;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #e6f7ff;
+    }
+
+    .loading {
+        font-size: 14px;
+        color: #555;
+    }
+
+    label {
+        display: block;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .label-input-row {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Adjust spacing between label and input as needed */
+        margin-top: 20px; /* Adjust vertical spacing as needed */
+    }
+
+    .label-input-row label {
+        font-weight: bold;
+        margin: 0;
+        align:middle;
+    }
+
+    .label-input-row input[type="number"] {
+        width: 80px; /* Adjust width as needed */
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <h1>OrangeHRM Performance Metrics</h1>
+    <p>Enter URLs below to retrieve performance metrics like First Contentful Paint, Largest Contentful Paint, and more.</p>
+
+    <div class="label-input-row">
+        <label for="numRuns">How many times do you want to fetch metrics for each URL?</label>
+        <input type="number" id="numRuns" min="1" value="1" placeholder="Enter number of runs (default is 1)" />
+    </div>
+
+    <textarea id="urlInput" placeholder="Enter URLs separated by commas (e.g., https://example.com, https://another-example.com)"></textarea>
+    <button id="submitBtn">Get Metrics</button>
+    <button id="downloadPdfBtn">Download PDF</button>
+    <button id="downloadCsvBtn">Download CSV</button>
+
+    <h3>Performance Metrics:</h3>
+    <table id="metricsTable">
+        <thead>
+        <tr>
+            <th>URL</th>
+            <th>Run</th>
+            <th>First Contentful Paint</th>
+            <th>Largest Contentful Paint</th>
+            <th>Total Blocking Time</th>
+            <th>Cumulative Layout Shift</th>
+            <th>Speed Index</th>
+            <th>Overall Performance</th>
+        </tr>
+        </thead>
+        <tbody id="metricsOutput">
+        <tr><td colspan="8" style="text-align: center;">Metrics will appear here. It may take some time... </td></tr>
+        </tbody>
+    </table>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
